@@ -10,19 +10,22 @@ namespace CookBook.Model
     {
         [Key]
         public int RecipeId { get; set; }
-        public string ?Name { get; set; }
-        public string ?Description { get; set; }
-        public string ?Image { get; set; }
-        public int Rating { get; set; }
+        public string? Name { get; set; }
+        public string? Description { get; set; }
+        public string? Image { get; set; }
+        public int? Rating { get; set; }
+        public Degree? Degree { get; set; }
+        public int? Temperature { get; set; }
+        public string? CookTime { get; set; }
+        
         public RecipeCategory Category { get; set; }
         public RecipeDifficultyLevel RecipeDifficultyLevel { get; set; }
         [ForeignKey("AppUser")]
-        public AppUser? Owner { get; set;}
+        public AppUser? Owner { get; set; }
         [ForeignKey("InstructionsId")]
-        public ICollection<Instructions> ?Instructions { get; set; }
+        public ICollection<Instructions>? Instructions { get; set; }
         [ForeignKey("IngredientsId")]
-        public ICollection<Ingredients> ?Ingredients { get; set; }
-
+        public ICollection<Ingredients>? Ingredients { get; set; }
 
 
     }

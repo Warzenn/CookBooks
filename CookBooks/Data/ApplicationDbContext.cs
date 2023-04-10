@@ -10,7 +10,7 @@ namespace CookBooks.Data
         { 
 
         }
-       
+
         public DbSet<Instructions> Instructions { get; set; }
         public DbSet<Ingredients> Ingredients { get; set; }
         public DbSet<Recipe> Recipes { get; set; }

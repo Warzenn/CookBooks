@@ -55,16 +55,16 @@ namespace CookBook.Data
                                 RecipeDifficultyLevel = RecipeDifficultyLevel.easy,
 
                                 Instructions = new List<Instructions>()
-                                   {
+                                {
                                     new Instructions {Instruction = "Prvni 2 instukce"},
                                     new Instructions {Instruction = "Druha 2 instrukce"},
                                     new Instructions {Instruction = "Treti 2 instrukce"}
                                 },
                                 Ingredients = new List<Ingredients>()
                                 {
-                                new Ingredients {Ingredient = "1/2 vejce 1"},
-                                new Ingredients {Ingredient = "1/2 mouky 1"},
-                                new Ingredients {Ingredient = "1/2 vody 1"}
+                                new Ingredients {Ingredient = "1/2 vejce 2"},
+                                new Ingredients {Ingredient = "1/2 mouky 2"},
+                                new Ingredients {Ingredient = "1/2 vody 2"}
                                 }
                             },
                         new Recipe()
@@ -78,7 +78,7 @@ namespace CookBook.Data
                                 RecipeDifficultyLevel = RecipeDifficultyLevel.easy,
 
                                 Instructions = new List<Instructions>()
-                                   {
+                                {
                                     new Instructions {Instruction = "Prvni 3 instukce"},
                                     new Instructions {Instruction = "Druha 3 instrukce"},
                                     new Instructions {Instruction = "Treti 3 instrukce"}
@@ -86,9 +86,9 @@ namespace CookBook.Data
 
                                 Ingredients = new List<Ingredients>()
                                 {
-                                new Ingredients {Ingredient = "1/2 vejce 1"},
-                                new Ingredients {Ingredient = "1/2 mouky 1"},
-                                new Ingredients {Ingredient = "1/2 vody 1"}
+                                new Ingredients {Ingredient = "1/2 vejce 3"},
+                                new Ingredients {Ingredient = "1/2 mouky 3"},
+                                new Ingredients {Ingredient = "1/2 vody 3"}
                                 }
                             },
                     }); ;
