@@ -1,5 +1,6 @@
 ﻿using CookBook.Model;
 using CookBooks.Data;
+using CookBooks.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,20 +9,22 @@ namespace CookBooks.Controllers
     public class RecipeController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IRecipeRepository _recipeRepository;
 
-        public RecipeController(ApplicationDbContext context)
+        public RecipeController(ApplicationDbContext context, IRecipeRepository recipeRepository)
         {
             _context = context;
+            _recipeRepository = recipeRepository;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var Recipe = _context.Recipes.ToList();
-            return View(Recipe);
+            IEnumerable<Recipe> recipe = await _recipeRepository.GetAll();
+            return View(recipe);
         }
 
-        public IActionResult Detail(int id)
+        public async Task<IActionResult> Detail(int id)
         {
-            Recipe recipe = _context.Recipes.Include(i => i.Instructions).Include(j => j.Ingredients).FirstOrDefault(c => c.RecipeId == id);
+            Recipe recipe = await _recipeRepository.GetByIdAsync(id);
             return View(recipe);
         }
     }

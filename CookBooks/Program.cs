@@ -1,11 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using CookBooks.Data;
 using CookBook.Data;
+using CookBooks.Interfaces;
+using CookBooks.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));

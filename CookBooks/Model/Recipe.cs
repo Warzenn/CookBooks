@@ -18,7 +18,7 @@ namespace CookBook.Model
         public int? Temperature { get; set; }
         public string? CookTime { get; set; }
         
-        public RecipeCategory Category { get; set; }
+        public RecipeCategory RecipeCategory { get; set; }
         public RecipeDifficultyLevel RecipeDifficultyLevel { get; set; }
         [ForeignKey("AppUser")]
         public AppUser? Owner { get; set; }

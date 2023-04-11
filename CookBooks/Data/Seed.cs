@@ -25,7 +25,7 @@ namespace CookBook.Data
                             Description = "Super mnamka podavana na chlebu",
                             Image = "https://www.eatthis.com/wp-content/uploads/sites/4/2020/05/running.jpg?quality=82&strip=1&resize=640%2C360",
                             Rating = 10,
-                            Category = RecipeCategory.MainDishes,
+                            RecipeCategory = RecipeCategory.MainDishes,
                             RecipeDifficultyLevel = RecipeDifficultyLevel.easy,
 
                             Instructions = new List<Instructions>()
@@ -51,7 +51,7 @@ namespace CookBook.Data
                                 Description = "Super mnamka podavana na chlebu 2",
                                 Image = "https://www.eatthis.com/wp-content/uploads/sites/4/2020/05/running.jpg?quality=82&strip=1&resize=640%2C360",
                                 Rating = 10,
-                                Category = RecipeCategory.MainDishes,
+                                RecipeCategory = RecipeCategory.MainDishes,
                                 RecipeDifficultyLevel = RecipeDifficultyLevel.easy,
 
                                 Instructions = new List<Instructions>()
@@ -74,7 +74,7 @@ namespace CookBook.Data
                                 Description = "Super mnamka podavana na chlebu 3",
                                 Image = "https://www.eatthis.com/wp-content/uploads/sites/4/2020/05/running.jpg?quality=82&strip=1&resize=640%2C360",
                                 Rating = 10,
-                                Category = RecipeCategory.MainDishes,
+                                RecipeCategory = RecipeCategory.MainDishes,
                                 RecipeDifficultyLevel = RecipeDifficultyLevel.easy,
 
                                 Instructions = new List<Instructions>()
