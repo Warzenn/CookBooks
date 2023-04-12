@@ -7,3 +7,4 @@ $(window).ready(function() {
   // Splash Screen
   $("#splash").fadeOut();
 });
+

@@ -27,5 +27,10 @@ namespace CookBooks.Controllers
             Recipe recipe = await _recipeRepository.GetByIdAsync(id);
             return View(recipe);
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }
