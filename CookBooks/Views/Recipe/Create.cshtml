@@ -1,81 +1,134 @@
 ﻿@using CookBook.Model;
 @using CookBook.Model.Enums;
-@model Recipe
+@using CookBooks.ViewModels;
+
+@model CreateRecipeViewModel
 
 
-<form>
-    <div class="form-group">
+@{
+    ViewData["Title"] = "Create Recipe";
+}
+
+<form asp-action="Create">
+@*   <div class="form-group">
         <label asp-for="Name">Recipe Name</label>
         <input asp-for="Name" type="text" class="form-control" placeholder="Enter recipe name">
+        <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="Description">Description</label>
-        <textarea asp-for="Description" class="form-control"  rows="3"></textarea>
+        <textarea asp-for="Description" type="text" class="form-control" placeholder="Enter description" rows="3"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Image">Image</label>
+        <input asp-for="Image" type="" class="form-control" rows="1">
+        <span asp-validation-for="Image" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="RecipeCategory" class="control-label"></label>
-        <select asp-for="RecipeCategory" asp-items="Html.GetEnumSelectList<RecipeCategory>()" class="form-control"></select>   
+        <select asp-for="RecipeCategory" asp-items="Html.GetEnumSelectList<RecipeCategory>()" class="form-control">
+            <option>--Select--</option>
+        </select>   
+        <span asp-validation-for="RecipeCategory"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="CookTime">Cooking time</label>
-        <input asp-for="CookTime" type="text" class="form-control" placeholder="Enter cooking time">
+        <input asp-for="CookTime" type="text" class="form-control" placeholder="Enter cooking time in minutes">
+        <span asp-validation-for="CookTime" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="Temperature">Cooking temperature</label>
-        <input asp-for="Temperature" type="text" class="form-control" placeholder="Enter cooking temperature in minutes">
+        <input asp-for="Temperature" type="text" class="form-control" placeholder="Enter cooking temperature">
+        <span asp-validation-for="Temperature" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="Degree" class="control-label"></label>
-        <select asp-for="Degree" asp-items="Html.GetEnumSelectList<Degree>()" class="form-control"></select>
+        <select asp-for="Degree" asp-items="Html.GetEnumSelectList<Degree>()" class="form-control">
+            <option>--Select--</option>
+        </select>
+        <span asp-validation-for="Degree" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="RecipeDifficultyLevel" class="control-label"></label>
-        <select asp-for="RecipeDifficultyLevel" asp-items="Html.GetEnumSelectList<RecipeDifficultyLevel>()" class="form-control"></select>
+        <select asp-for="RecipeDifficultyLevel" asp-items="Html.GetEnumSelectList<RecipeDifficultyLevel>()" class="form-control">
+            <option>--Select--</option>
+        </select>
+        <span asp-validation-for="RecipeDifficultyLevel" class="text-danger"></span>
     </div>
+*@
+    <p1> Ingredients</p1>
+
+   <div>
+        <table id="tingredients">
+            <tbody class="table" id="tbbodyIngredients">
+                <tr>
+
+                    @if (Model == null || Model.Ingredients.Count < 2)
+                    {
+                        <td>
+                            <input asp-for="Ingredients[0].Ingredient" class="form-control" placeholder="Enter 1. ingredients" />
+                        </td>
+                        <td>
+                            <span asp-validation-for="Ingredients[0].Ingredient" class="text-danger"></span>
+                        </td>
 
 
-    <p1> Instructions</p1>
+                    }
+                    else
+                    {
+                        for (int i = 0; i < Model.Ingredients.Count; i++)
+                        {
+                            if (i == Model.Ingredients.Count - 1 && Model.Ingredients[i].Ingredient == null)
+                            {
+                            <tr>
+                                <td>
+                                    <input asp-for="Ingredients[i].Ingredient" class="form-control" placeholder="Enter 1. ingredients" value="Enter @Model.Ingredients.Count . ingredients " />
+                                </td>
+                                <td>
+                                    <span asp-validation-for="Ingredients[i].Ingredient" class="text-danger"></span>
+                                </td>
+                            </tr>
+                            }
+                            else
+                            {
 
-    <div style="width:60%;">
+                            <tr>
+                                <td>
+                                    <input asp-for="Ingredients[i].Ingredient" class="form-control" placeholder="Enter 1. ingredients" value="@Model.Ingredients[i].Ingredient" />
+                                </td>
+                                <td>
+                                    <span asp-validation-for="Ingredients[i].Ingredient" class="text-danger"></span>
+                                </td>
+                            </tr>
+                            }
 
-        <form>
-            <div class="">
-                <div class="col-lg-12">
-                    <div id="row">
-                        <div class="input-group m-3">
-                            <div class="input-group-prepend">
-                                <button class="btn btn-danger"
-                                        id="DeleteRow" type="button">
-                                    <i class="bi bi-trash"></i>
-                                    Delete
-                                </button>
-                            </div>
-                            <input asp-for="Instructions" type="text"
-                                   class="form-control m-input">
-                        </div>
-                    </div>
+                        }
+                    }
 
-                    <div id="newinput"></div>
-                    <button id="rowAdder" type="button"
-                            class="btn btn-dark">
-                        <span class="bi bi-plus-square-dotted">
-                        </span> ADD
-                    </button>
-                </div>
-            </div>
-        </form>
-    </div>
+                 </tr>   
+                    
+         
+                   
+                    
+               
+            </tbody>
+            <tfoot style="margin-top: 15px">
+                <tr>
+                    <td colspan="2"><input type="button" onclick="addIngredientRow()" value="Add New Ingredients" class="btn btn-primary" /></td>
+                    <td colspan="2"><input type="button" onclick="deleteIngredientRow()" value="Delete Ingredient" class="btn btn-primary" /></td>
+                </tr>
 
-
-    <div class="form-group">
-        <label asp-for="RecipeDifficultyLevel" class="control-label"></label>
-        <select asp-for="RecipeDifficultyLevel" asp-items="Html.GetEnumSelectList<RecipeDifficultyLevel>()" class="form-control"></select>
+            </tfoot>
+        </table>
     </div>
     
+    <button type="submit" value="Submit" class="btn btn-primary" style="margin-bottom:100px; margin-top: 20px">Submit</button>
 </form>

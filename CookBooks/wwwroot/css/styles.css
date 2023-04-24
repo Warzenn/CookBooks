@@ -312,10 +312,11 @@ table {
 */
 
 footer {
-  background-color: #a44c9f;
-  color: #f9f9f9;
-  margin-bottom: 24px;
-  margin-top: 24px;
+    background-color: #a44c9f;
+    color: #f9f9f9;
+    margin-bottom: 24px;
+    margin-top: 24px;
+
 }
 .footer-about {
   margin-bottom: 24px;

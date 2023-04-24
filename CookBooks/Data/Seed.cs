@@ -25,23 +25,25 @@ namespace CookBook.Data
                             Description = "Super mnamka podavana na chlebu",
                             Image = "https://www.eatthis.com/wp-content/uploads/sites/4/2020/05/running.jpg?quality=82&strip=1&resize=640%2C360",
                             Rating = 10,
+                            CookTime = 120,
+                            Temperature = 200,
+                            Degree = Degree.Celsius,
                             RecipeCategory = RecipeCategory.MainDishes,
                             RecipeDifficultyLevel = RecipeDifficultyLevel.easy,
 
                             Instructions = new List<Instructions>()
                             {
-                                new Instructions {Instruction = "Prvni instukce"},
-                                new Instructions {Instruction = "Druha instrukce"},
-                                new Instructions {Instruction = "Treti instrukce"}
+                                new Instructions { Instruction = "Prvni instrukce 1" },
+                                new Instructions { Instruction = "Druha instrukce 1" },
+                                new Instructions { Instruction = "Treti instrukce 1" }
                             },
 
                             Ingredients = new List<Ingredients>()
                             {
-                                new Ingredients {Ingredient = "1/2 vejce 1"},
-                                new Ingredients {Ingredient = "1/2 mouky 1"},
-                                new Ingredients {Ingredient = "1/2 vody 1"}
+                                new Ingredients { Ingredient = "Prvni Ingredient 1" },
+                                new Ingredients { Ingredient = "Druha Ingredient 1" },
+                                new Ingredients { Ingredient = "Treti Ingredient 1" }
                             }
-
                         },
 
                         new Recipe()
@@ -51,20 +53,24 @@ namespace CookBook.Data
                                 Description = "Super mnamka podavana na chlebu 2",
                                 Image = "https://www.eatthis.com/wp-content/uploads/sites/4/2020/05/running.jpg?quality=82&strip=1&resize=640%2C360",
                                 Rating = 10,
+                                CookTime = 120,
+                                Temperature = 200,
+                                Degree = Degree.Celsius,
                                 RecipeCategory = RecipeCategory.MainDishes,
                                 RecipeDifficultyLevel = RecipeDifficultyLevel.easy,
 
                                 Instructions = new List<Instructions>()
                                 {
-                                    new Instructions {Instruction = "Prvni 2 instukce"},
-                                    new Instructions {Instruction = "Druha 2 instrukce"},
-                                    new Instructions {Instruction = "Treti 2 instrukce"}
+                                    new Instructions { Instruction = "Prvni instrukce 2" },
+                                    new Instructions { Instruction = "Druha instrukce 2" },
+                                    new Instructions { Instruction = "Treti instrukce 2" }
                                 },
+
                                 Ingredients = new List<Ingredients>()
                                 {
-                                new Ingredients {Ingredient = "1/2 vejce 2"},
-                                new Ingredients {Ingredient = "1/2 mouky 2"},
-                                new Ingredients {Ingredient = "1/2 vody 2"}
+                                    new Ingredients { Ingredient = "Prvni Ingredient 2" },
+                                    new Ingredients { Ingredient = "Druha Ingredient 2" },
+                                    new Ingredients { Ingredient = "Treti Ingredient 2" }
                                 }
                             },
                         new Recipe()
@@ -74,24 +80,29 @@ namespace CookBook.Data
                                 Description = "Super mnamka podavana na chlebu 3",
                                 Image = "https://www.eatthis.com/wp-content/uploads/sites/4/2020/05/running.jpg?quality=82&strip=1&resize=640%2C360",
                                 Rating = 10,
+                                CookTime = 20,
+                                Temperature = 300,
+                                Degree = Degree.Fahrenheit,
+
                                 RecipeCategory = RecipeCategory.MainDishes,
                                 RecipeDifficultyLevel = RecipeDifficultyLevel.easy,
 
                                 Instructions = new List<Instructions>()
                                 {
-                                    new Instructions {Instruction = "Prvni 3 instukce"},
-                                    new Instructions {Instruction = "Druha 3 instrukce"},
-                                    new Instructions {Instruction = "Treti 3 instrukce"}
+                                    new Instructions { Instruction = "Prvni instrukce 3" },
+                                    new Instructions { Instruction = "Druha instrukce 3" },
+                                    new Instructions { Instruction = "Treti instrukce 3" }
                                 },
 
                                 Ingredients = new List<Ingredients>()
                                 {
-                                new Ingredients {Ingredient = "1/2 vejce 3"},
-                                new Ingredients {Ingredient = "1/2 mouky 3"},
-                                new Ingredients {Ingredient = "1/2 vody 3"}
+                                    new Ingredients { Ingredient = "Prvni Ingredient 3" },
+                                    new Ingredients { Ingredient = "Druha Ingredient 3" },
+                                    new Ingredients { Ingredient = "Treti Ingredient 3" }
                                 }
-                            },
-                    }); ;
+
+
+                    } }) ;
                     context.SaveChanges();
                 }
             }

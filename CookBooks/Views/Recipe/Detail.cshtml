@@ -27,22 +27,24 @@
         <div class="col-md-4">
             <h3 class="my-3">@Model.Name</h3>
             <p>@Model.Description</p>
-            <h3 class="my-3">Ingredients</h3>
+            <h2>Instructions:</h2>
             <ul>
-      
-                @foreach (var item in Model.Ingredients)
+                @foreach (var item in @Model.Instructions)
                 {
-                    <li>@item.Ingredient</li>
-                }
-                
-            </ul>
-            <h3 class="my-3">Instructions</h3>
-            <ul>
-                @foreach (var item in Model.Instructions)
-                {
-                    <li>@item.Instruction</li>
+                    <li class="my-3">@item.Instruction</li>
                 }
             </ul>
+            <h2>Ingredients:</h2>
+            <ul>
+                @foreach (var item in @Model.Ingredients)
+                {
+                    <li class="my-3">@item.Ingredient</li>
+                }
+            </ul>
+            
+
+            
+
         </div>
 
     </div>
