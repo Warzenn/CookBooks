@@ -6,7 +6,6 @@
 
 var ingredientRowCount = 0;
 
-if (localStorage.hasOwnProperty("ingredientCountStorage")) {
 
     ingredientRowCount = 0;
     ingredientRowCount = parseInt(localStorage.getItem("ingredientCountStorage"));
@@ -16,7 +15,6 @@ else {
     ingredientRowCount = 2;
     localStorage.setItem(ingredientCountStorage, ingredientRowCount);
 
-}
 
 
 
