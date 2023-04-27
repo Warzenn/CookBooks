@@ -4,16 +4,6 @@
 // Write your JavaScript code.
 
 
-var ingredientRowCount = 0;
-
-
-    ingredientRowCount = 0;
-    ingredientRowCount = parseInt(localStorage.getItem("ingredientCountStorage"));
-
-}
-else {
-    ingredientRowCount = 2;
-    localStorage.setItem(ingredientCountStorage, ingredientRowCount);
 
 
 
@@ -21,57 +11,88 @@ else {
 
 function addIngredientRow() {
 
-    if (localStorage.hasOwnProperty("ingredientCountStorage")) {
+    let container = document.getElementById("tbbodyIngredients");
+    let ingArrayElementNumber = container.childElementCount;
 
-        ingredientRowCount = parseInt(localStorage.getItem("ingredientCountStorage"));
+    let ingredientsCount = ingArrayElementNumber + 1;
 
-    }
-    else {
-        ingredientRowCount = 2;
-        localStorage.setItem(ingredientCountStorage, ingredientRowCount);
-
-    }
-
-    let ingredientsCount = ingredientRowCount + 1;
-    ingredientRowCount++;
-
-    let container = document.getElementById("tbbodyIngredients")
     
+
     let newRow = document.createElement("tr");
     let newData = document.createElement("td");
     let ingredientInput = document.createElement("input");
-   
-    newRow.id = "ingredient" + String(ingredientsCount);
+
+    newRow.id = "ingredient" + String(ingArrayElementNumber);
     container.appendChild(newRow);
-        
+
     newRow.appendChild(newData);
-        
-    ingredientInput.setAttribute("asp-for", "Ingredients[" + ingredientRowCount + "].Ingredient");
+
+    ingredientInput.setAttribute("asp-for", "Ingredients[" + ingArrayElementNumber + "].Ingredient");
     ingredientInput.setAttribute("class", "form-control");
     ingredientInput.setAttribute("placeholder", "Enter " + ingredientsCount + ". ingredients");
-    ingredientInput.setAttribute("name", "Ingredients[" + ingredientRowCount + "].Ingredient");
+    ingredientInput.setAttribute("name", "Ingredients[" + ingArrayElementNumber + "].Ingredient");
     ingredientInput.setAttribute("value", "");
     newData.appendChild(ingredientInput);
+
     
-    localStorage.ingredientCountStorage = ingredientRowCount;
 
 }
 
 function deleteIngredientRow() {
 
-    let ingredientId = "ingredient" + String(ingredientRowCount);
+    let container = document.getElementById("tbbodyIngredients")
+    let ingArrayElementNumber = container.childElementCount - 1;
+
+    let ingredientId = "ingredient" + String(ingArrayElementNumber);
     let ingredientList = document.getElementById(ingredientId);
-    if (ingredientRowCount == 1) {
-        window.alert("Need at least 1 ingredient")
+    if (ingArrayElementNumber == 0) {
+        window.alert("Need at least 1 ingredient");
     }
     else {
         ingredientList.remove();
-        ingredientRowCount--;
-        localStorage.ingredientCountStorage = ingredientRowCount;
     }
- 
-    
+}
 
+function addInstructionRow() {
+
+    let container = document.getElementById("tinstructions");
+    let insArrayElementNumber = container.childElementCount;
+    let instructionsCount = insArrayElementNumber + 1;
+    let newRow = document.createElement("div");
+    let instructionInput = document.createElement("textarea");
+    let instructionValidationRow = document.createElement("span");
+
+    newRow.id = "instruction" + String(insArrayElementNumber);
+
+    container.appendChild(newRow);
+
+    instructionInput.setAttribute("asp-for", "Instructions[" + insArrayElementNumber + "].instruction");
+    instructionInput.setAttribute("class", "form-control");
+    instructionInput.setAttribute("placeholder", "Enter " + instructionsCount + ". instructions");
+    instructionInput.setAttribute("name", "Instructions[" + insArrayElementNumber + "].Instruction");
+    instructionInput.setAttribute("rows", "1");
+    instructionInput.setAttribute("value", "");
+
+    newRow.appendChild(instructionInput);
+
+    instructionValidationRow.setAttribute("asp-for", "Instructions[" + insArrayElementNumber + "].instruction");
+    instructionValidationRow.setAttribute("class", "text-danger");
+    newRow.appendChild(instructionValidationRow);
+}
+
+function deleteInstructionRow() {
+
+    let container = document.getElementById("tinstructions")
+    let insArrayElementNumber = container.childElementCount - 1;
+    let instructionId = "instruction" + String(insArrayElementNumber);
+    let instructionList = document.getElementById(instructionId);
+
+    if (insArrayElementNumber == 0) {
+        window.alert("Need at least 1 instruction");
+    }
+    else {
+        instructionList.remove();
+    }
 }
 
 
@@ -99,11 +120,10 @@ function deleteIngredientRow() {
 //    $("#btnDeleteInstructions").click(function () {
 
 //        $(this).("#tbbodyInstructions").removeChild();
-        
+
 //    });
 //});
 
 
 
 //$("#tbbody").append("<tr><td> <input class='form-control' name='Model.Instructions[" + count + "]'</td></tr>");
-
