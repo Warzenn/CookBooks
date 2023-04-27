@@ -5,7 +5,7 @@
 namespace CookBooks.Migrations
 {
     /// <inheritdoc />
-    public partial class start001 : Migration
+    public partial class UpdateRecipeDB1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -12,8 +12,8 @@ namespace CookBooks.Data
 
         }
 
-        public DbSet<Instructions> Instructions { get; set; }
-        public DbSet<Ingredients> Ingredients { get; set; }
+        public DbSet<Instructions> Instruction { get; set; }
+        public DbSet<Ingredients> Ingredient { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }
         

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CookBooks.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230410091124_RecipeExtension")]
-    partial class RecipeExtension
+    [Migration("20230417162752_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,11 +27,11 @@ namespace CookBooks.Migrations
 
             modelBuilder.Entity("CookBook.Model.AppUser", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ProfileImage")
                         .HasColumnType("nvarchar(max)");
@@ -39,7 +39,7 @@ namespace CookBooks.Migrations
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("UserId");
+                    b.HasKey("Id");
 
                     b.ToTable("AppUsers");
                 });
@@ -55,57 +55,60 @@ namespace CookBooks.Migrations
                     b.Property<string>("Instruction")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("InstructionsId")
+                    b.Property<int?>("RecipeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("InstructionsId");
+                    b.HasIndex("RecipeId");
 
-                    b.ToTable("Instructions");
+                    b.ToTable("Instruction");
                 });
 
             modelBuilder.Entity("CookBook.Model.Recipe", b =>
                 {
-                    b.Property<int>("RecipeId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RecipeId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AppUser")
+                    b.Property<int?>("CookTime")
+                        .IsRequired()
                         .HasColumnType("int");
-
-                    b.Property<int>("Category")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CookTime")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Degree")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("OwnerId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RecipeCategory")
                         .HasColumnType("int");
 
                     b.Property<int>("RecipeDifficultyLevel")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Temperature")
+                    b.Property<int>("Temperature")
                         .HasColumnType("int");
 
-                    b.HasKey("RecipeId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("AppUser");
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("Recipes");
                 });
@@ -121,37 +124,41 @@ namespace CookBooks.Migrations
                     b.Property<string>("Ingredient")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("IngredientsId")
+                    b.Property<int?>("RecipeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IngredientsId");
+                    b.HasIndex("RecipeId");
 
-                    b.ToTable("Ingredients");
+                    b.ToTable("Ingredient");
                 });
 
             modelBuilder.Entity("CookBook.Model.Instructions", b =>
                 {
-                    b.HasOne("CookBook.Model.Recipe", null)
+                    b.HasOne("CookBook.Model.Recipe", "Recipe")
                         .WithMany("Instructions")
-                        .HasForeignKey("InstructionsId");
+                        .HasForeignKey("RecipeId");
+
+                    b.Navigation("Recipe");
                 });
 
             modelBuilder.Entity("CookBook.Model.Recipe", b =>
                 {
                     b.HasOne("CookBook.Model.AppUser", "Owner")
                         .WithMany("Recipes")
-                        .HasForeignKey("AppUser");
+                        .HasForeignKey("OwnerId");
 
                     b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("CookBooks.Model.Ingredients", b =>
                 {
-                    b.HasOne("CookBook.Model.Recipe", null)
+                    b.HasOne("CookBook.Model.Recipe", "Recipe")
                         .WithMany("Ingredients")
-                        .HasForeignKey("IngredientsId");
+                        .HasForeignKey("RecipeId");
+
+                    b.Navigation("Recipe");
                 });
 
             modelBuilder.Entity("CookBook.Model.AppUser", b =>

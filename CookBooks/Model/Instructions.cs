@@ -1,13 +1,15 @@
-﻿
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CookBook.Model
+
 {
     public class Instructions
     {
-
+        
         public int Id { get; set; }
-        public string? Instruction { get; set; }
+        [Required]
+        public string Instruction { get; set; }
+
+        public Recipe? Recipe { get; set; }
     }
 }

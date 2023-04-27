@@ -26,20 +26,17 @@ namespace CookBooks.Repository
         public async Task<Recipe> GetByIdAsync(int id)
         {
             //return await _context.Recipes.Where(i => i.RecipeId == id).SingleOrDefaultAsync();
-            return await _context.Recipes.Include(i => i.Ingredients).Include(j => j.Instructions).FirstOrDefaultAsync(i => i.RecipeId  == id);
+            return await _context.Recipes.Include(i => i.Ingredients).Include(j => j.Instructions).Where(i => i.Id  == id).FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Recipe>> GetRecipeByCategory(RecipeCategory category)
         {
-            var recipes = _context.Recipes.Include(r => r.RecipeCategory);
-            return await recipes.Where(i => i.RecipeCategory == category).ToListAsync();
+            return await _context.Recipes.Include(r => r.RecipeCategory).Where(i => i.RecipeCategory == category).ToListAsync();
         }
 
         public async Task<IEnumerable<Recipe>> GetRecipeByDifficulty(RecipeDifficultyLevel difficulty)
         {
-            var recipes = _context.Recipes.Include(r => r.RecipeDifficultyLevel);
-            return await recipes.Where(i => i.RecipeDifficultyLevel == difficulty).ToListAsync();
-           
+            return await _context.Recipes.Include(r => r.RecipeDifficultyLevel).Where(i => i.RecipeDifficultyLevel == difficulty).ToListAsync();
         }
 
         public bool Add(Recipe recipe)

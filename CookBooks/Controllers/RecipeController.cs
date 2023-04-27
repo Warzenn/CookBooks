@@ -1,19 +1,22 @@
 ﻿using CookBook.Model;
-using CookBooks.Data;
+using CookBook.Model.Enums;
 using CookBooks.Interfaces;
+using CookBooks.Model;
+using CookBooks.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+
 
 namespace CookBooks.Controllers
 {
     public class RecipeController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        List<CreateRecipeViewModel> vm = new List<CreateRecipeViewModel>();
+
         private readonly IRecipeRepository _recipeRepository;
 
-        public RecipeController(ApplicationDbContext context, IRecipeRepository recipeRepository)
+        public RecipeController(IRecipeRepository recipeRepository)
         {
-            _context = context;
+
             _recipeRepository = recipeRepository;
         }
         public async Task<IActionResult> Index()
@@ -32,5 +35,37 @@ namespace CookBooks.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateRecipeViewModel recipeVM)
+        {
+        
+            if (ModelState.IsValid)
+            {
+                var recipe = new Recipe
+                {
+                    Ingredients = recipeVM.Ingredients,
+                    Instructions = recipeVM.Instructions,
+                    Name = recipeVM.Name,
+                    Description = recipeVM.Description,
+                    Rating = recipeVM.Rating,
+                    CookTime = recipeVM.CookTime,
+                    RecipeCategory = recipeVM.RecipeCategory,
+                    Degree = recipeVM.Degree,
+                    RecipeDifficultyLevel = recipeVM.RecipeDifficultyLevel,
+                    Temperature = recipeVM.Temperature
+   
+                };
+       
+                _recipeRepository.Add(recipe);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Error creating Recipe");
+            }
+            return View(recipeVM);
+        }
     }
 }
+
