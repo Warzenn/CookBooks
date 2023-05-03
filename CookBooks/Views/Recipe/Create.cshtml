@@ -9,8 +9,8 @@
     ViewData["Title"] = "Create Recipe";
 }
 
-<form asp-action="Create">
-@*   <div class="form-group">
+<form method="post" asp-action="Create" enctype="multipart/form-data">
+   <div class="form-group">
         <label asp-for="Name">Recipe Name</label>
         <input asp-for="Name" type="text" class="form-control" placeholder="Enter recipe name">
         <span asp-validation-for="Name" class="text-danger"></span>
@@ -24,7 +24,7 @@
 
     <div class="form-group">
         <label asp-for="Image">Image</label>
-        <input asp-for="Image" type="" class="form-control" rows="1">
+        <input asp-for="Image" type="file" class="form-control" rows="1">
         <span asp-validation-for="Image" class="text-danger"></span>
     </div>
 
@@ -33,7 +33,7 @@
         <select asp-for="RecipeCategory" asp-items="Html.GetEnumSelectList<RecipeCategory>()" class="form-control">
             <option>--Select--</option>
         </select>   
-        <span asp-validation-for="RecipeCategory"></span>
+        <span asp-validation-for="RecipeCategory" class="text-danger"></span>
     </div>
 
     <div class="form-group">
@@ -63,59 +63,66 @@
         </select>
         <span asp-validation-for="RecipeDifficultyLevel" class="text-danger"></span>
     </div>
-*@
-   @* <p1> Ingredients</p1>
+    <p1> Ingredients</p1>
 
-   <div>
-        <table id="tingredients">
-            <tbody class="table" id="tbbodyIngredients">
-                
-                    @if (Model == null || Model.Ingredients.Count < 2)
-                    {
-                        <tr id="ingredient0">
-                            <td>
-                                <input asp-for="Ingredients[0].Ingredient" class="form-control" placeholder="Enter 1. ingredients" />
-                            </td>
-                            <td>
-                                <span asp-validation-for="Ingredients[0].Ingredient" class="text-danger"></span>
-                            </td>
-                    </tr>
-                }
-                else
+   
+    <table id="tingredients">
+        <tbody class="table" id="tbbodyIngredients">     
+            @if (Model == null || Model.Ingredients.Count < 2)
+            {
+                <tr id="ingredient0">
+                    <td>
+                        <input asp-for="Ingredients[0].Ingredient" class="form-control" placeholder="Enter 1. ingredients" />
+                    </td>
+                    <td>
+                        <span asp-validation-for="Ingredients[0].Ingredient" class="text-danger"></span>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                for (int i = 0; i < Model.Ingredients.Count; i++)
                 {
-                    for (int i = 0; i < Model.Ingredients.Count; i++)
+                    var ingredientcount = i + 1;
+                    var ingredientId = "ingredient" + i;
+
+                    if (Model.Ingredients[i].Ingredient == null)
                     {
-                        var ingredientcount = i + 1;
-                        var ingredientId ="ingredient" + i;
 
-                        if (Model.Ingredients[i].Ingredient == null)
-                        {
+                        <tr id="@ingredientId">
+                            <td>
+                                <input asp-for="Ingredients[i].Ingredient" class="form-control" placeholder="Enter 1. ingredients" value="Enter @ingredientcount . ingredients " />
+                            </td>
+                            <td>
+                                <span asp-validation-for="Ingredients[i].Ingredient" class="text-danger"></span>
+                            </td>
+                        </tr>
+                    }
 
-                            <tr id="@ingredientId">
-                                    <td>
-                                    <input asp-for="Ingredients[i].Ingredient" class="form-control" placeholder="Enter 1. ingredients" value="Enter @ingredientcount . ingredients " />
-                                    </td>
-                                    <td>
-                                        <span asp-validation-for="Ingredients[i].Ingredient" class="text-danger"></span>
-                                    </td>
-                                </tr>
-                            }
-                            else
-                            {
+                    else
+                    {
 
-                                <tr id="ingredient+@i">
-                                    <td>
-                                        <input asp-for="Ingredients[i].Ingredient" class="form-control" placeholder="Enter 1. ingredients" value="@Model.Ingredients[i].Ingredient" />
-                                    </td>
-                                    <td>
-                                        <span asp-validation-for="Ingredients[i].Ingredient" class="text-danger"></span>
-                                    </td>
-                                </tr>
-                            }
+                        <tr id="ingredient+@i">
+                            <td>
+                                <input asp-for="Ingredients[i].Ingredient" class="form-control" placeholder="Enter 1. ingredients" value="@Model.Ingredients[i].Ingredient" />
+                            </td>
+                            <td>
+                                <span asp-validation-for="Ingredients[i].Ingredient" class="text-danger"></span>
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+        <tfoot style="margin-top: 15px">
+            <tr>
+                <td colspan="2"><input type="button" onclick="addIngredientRow()" value="Add New Ingredients" class="btn btn-primary" /></td>
+                <td colspan="2"><input type="button" onclick="deleteIngredientRow()" value="Delete Ingredient" class="btn btn-primary" /></td>
+            </tr>
 
-                        }
-                    }*@
-
+        </tfoot>
+    </table>
+    
     <p1> Instructions</p1>
     <div id="tinstructions">
                 

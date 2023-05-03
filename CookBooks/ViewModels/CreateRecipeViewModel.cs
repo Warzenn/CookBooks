@@ -8,7 +8,7 @@ namespace CookBooks.ViewModels
     {
         public string? Name { get; set; }
         public string? Description { get; set; }
-        public string? Image { get; set; }
+        public IFormFile Image { get; set; }
         public int? Rating { get; set; }
         public Degree? Degree { get; set; }
         public int Temperature { get; set; }

@@ -10,14 +10,14 @@ namespace CookBooks.Controllers
 {
     public class RecipeController : Controller
     {
-        List<CreateRecipeViewModel> vm = new List<CreateRecipeViewModel>();
-
         private readonly IRecipeRepository _recipeRepository;
+        private readonly IPhotoService _photoService;
 
-        public RecipeController(IRecipeRepository recipeRepository)
+        public RecipeController(IRecipeRepository recipeRepository, IPhotoService photoService)
         {
 
             _recipeRepository = recipeRepository;
+            _photoService = photoService;
         }
         public async Task<IActionResult> Index()
         {
@@ -42,6 +42,7 @@ namespace CookBooks.Controllers
         
             if (ModelState.IsValid)
             {
+                var result = await _photoService.AddPhotoAsync(recipeVM.Image);
                 var recipe = new Recipe
                 {
                     Ingredients = recipeVM.Ingredients,
@@ -53,8 +54,8 @@ namespace CookBooks.Controllers
                     RecipeCategory = recipeVM.RecipeCategory,
                     Degree = recipeVM.Degree,
                     RecipeDifficultyLevel = recipeVM.RecipeDifficultyLevel,
-                    Temperature = recipeVM.Temperature
-   
+                    Temperature = recipeVM.Temperature,
+                    Image = result.Url.ToString()
                 };
        
                 _recipeRepository.Add(recipe);
