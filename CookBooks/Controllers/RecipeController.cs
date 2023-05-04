@@ -67,6 +67,18 @@ namespace CookBooks.Controllers
             }
             return View(recipeVM);
         }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var recipe = await _recipeRepository.GetByIdAsync(id);
+            if (recipe == null)
+            {
+                ModelState.AddModelError("", "Error finding Recipe");
+            }
+            
+            
+            return View(recipe);    
+        }
     }
 }
 
