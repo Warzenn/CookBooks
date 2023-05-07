@@ -4,6 +4,7 @@ using CookBooks.Helpers;
 using CookBooks.Interfaces;
 using Microsoft.Extensions.Options;
 
+
 namespace CookBooks.Services
 {
     public class PhotoService : IPhotoService
@@ -35,13 +36,24 @@ namespace CookBooks.Services
             return uploadResult;
         }
 
-        public async Task<DeletionResult> DeletePhotoAsync(string publicId)
+        public async Task<DeletionResult> DeletePhotoAsync(string ImageUrl)
         {
+            string publicId = getPublicIdFromUrl(ImageUrl);
             var deleteParam = new DeletionParams(publicId);
             var result =  await _cloudinary.DestroyAsync(deleteParam);
 
             return result;
 
+        }
+
+        public string getPublicIdFromUrl(string URL)
+        {
+            int startIndexOfUrl = URL.LastIndexOf("/") + 1;
+            int lenghOfPublicId = URL.LastIndexOf(".") - startIndexOfUrl;
+
+            string publicId = URL.Substring(startIndexOfUrl, lenghOfPublicId);
+
+            return publicId;
         }
     }
 }

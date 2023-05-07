@@ -6,6 +6,7 @@ namespace CookBooks.Interfaces
     {
 
         Task<ImageUploadResult> AddPhotoAsync(IFormFile file);
-        Task<DeletionResult> DeletePhotoAsync(string publicId);
+        Task<DeletionResult> DeletePhotoAsync(string ImageUrl);
+        string getPublicIdFromUrl(string URL);
     }
 }

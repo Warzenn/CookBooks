@@ -1,16 +1,20 @@
-﻿using CookBook.Model;
-using CookBook.Model.Enums;
+﻿using CookBook.Model.Enums;
+using CookBook.Model;
 using CookBooks.Model;
 
 namespace CookBooks.ViewModels
+
+
+
 {
-    public class CreateRecipeViewModel
+    public class EditRecipeViewModel
     {
-        
+
+        public int Id { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
         public IFormFile Image { get; set; }
-        public string? URL { get; set; }
+        public string URL { get; set; }
         public int? Rating { get; set; }
         public Degree? Degree { get; set; }
         public int Temperature { get; set; }
@@ -18,7 +22,7 @@ namespace CookBooks.ViewModels
         public RecipeCategory RecipeCategory { get; set; }
         public RecipeDifficultyLevel RecipeDifficultyLevel { get; set; }
 
-        
+
         public List<Instructions>? Instructions { get; set; }
         public List<Ingredients>? Ingredients { get; set; }
     }

@@ -25,7 +25,6 @@ namespace CookBooks.Repository
 
         public async Task<Recipe> GetByIdAsync(int id)
         {
-            //return await _context.Recipes.Where(i => i.RecipeId == id).SingleOrDefaultAsync();
             return await _context.Recipes.Include(i => i.Ingredients).Include(j => j.Instructions).Where(i => i.Id  == id).FirstOrDefaultAsync();
         }
 
