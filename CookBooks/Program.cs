@@ -28,16 +28,11 @@ builder.Services.AddIdentityCore<AppUser>(opt =>
     .AddRoleManager<RoleManager<AppRole>>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-// builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 
-// builder.Services.AddDbContext<ApplicationDbContext>(options =>
-// {
-//     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-// });
-
-builder.Services.AddDbContext<ApplicationDbContext>(opt =>
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    opt.UseSqlite("Data source=books.db");
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
 var app = builder.Build();
