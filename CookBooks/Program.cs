@@ -5,6 +5,9 @@ using CookBooks.Interfaces;
 using CookBooks.Repository;
 using CookBooks.Services;
 using CookBooks.Helpers;
+using CookBook.Model;
+using CookBooks.Model;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,19 +15,40 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
 builder.Services.AddScoped<IPhotoService, PhotoService>();
-builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+
+builder.Services.AddIdentityCore<AppUser>(opt =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    opt.Password.RequireNonAlphanumeric = false;
+    opt.Password.RequiredLength = 4;
+    opt.Password.RequireUppercase = false;
+    opt.Password.RequireLowercase = false;
+    opt.Password.RequireDigit = false;
+})
+    .AddRoles<AppRole>()
+    .AddRoleManager<RoleManager<AppRole>>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+// builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
+
+// builder.Services.AddDbContext<ApplicationDbContext>(options =>
+// {
+//     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+// });
+
+builder.Services.AddDbContext<ApplicationDbContext>(opt =>
+{
+    opt.UseSqlite("Data source=books.db");
 });
 
 var app = builder.Build();
 
-if (args.Length == 1 && args[0].ToLower() == "seeddata")
-{
-    //await Seed.SeedUsersAndRolesAsync(app);
-    Seed.SeedData(app);
-}
+Seed.SeedData(app);
+
+// if (args.Length == 1 && args[0].ToLower() == "seeddata")
+// {
+//     //await Seed.SeedUsersAndRolesAsync(app);
+//     Seed.SeedData(app);
+// }
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
