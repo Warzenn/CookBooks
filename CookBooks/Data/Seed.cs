@@ -18,6 +18,8 @@ namespace CookBook.Data
                 var userManager = services.GetService<UserManager<AppUser>>();
                 var roleManger = services.GetService<RoleManager<AppRole>>();
 
+                context.Database.EnsureCreated();
+
                 if (await userManager.Users.AnyAsync()) return;
 
                 var users = new List<AppUser>{
