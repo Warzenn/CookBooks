@@ -39,7 +39,7 @@ namespace CookBooks.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateRecipeViewModel recipeVM)
         {
-        
+
             if (ModelState.IsValid)
             {
                 var result = await _photoService.AddPhotoAsync(recipeVM.Image);
@@ -57,7 +57,7 @@ namespace CookBooks.Controllers
                     Temperature = recipeVM.Temperature,
                     Image = result.Url.ToString()
                 };
-       
+
                 _recipeRepository.Add(recipe);
                 return RedirectToAction("Index");
             }
@@ -86,38 +86,57 @@ namespace CookBooks.Controllers
                 Ingredients = recipe.Ingredients,
                 Instructions = recipe.Instructions,
                 URL = recipe.Image
-            };   
-            return View(recipeVM);    
+            };
+            return View(recipeVM);
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(EditRecipeViewModel recipeVM,int id)
+        public async Task<IActionResult> Edit(EditRecipeViewModel recipeVM, int id)
         {
-            var recipe = await _recipeRepository.GetByIdAsync(id);
-            
-            if (recipe == null) return View("Error");
-            var oldImage = recipe.Image;
 
-            recipe.Name = recipeVM.Name;
-            recipe.Description = recipeVM.Description;
-            
-            recipe.RecipeCategory = recipeVM.RecipeCategory;
-            recipe.CookTime = recipeVM.CookTime;
-            recipe.Temperature = recipeVM.Temperature;
-            recipe.Degree = recipeVM.Degree;
-            recipe.RecipeDifficultyLevel = recipeVM.RecipeDifficultyLevel;
-            recipe.Ingredients = recipeVM.Ingredients;
-            recipe.Instructions = recipeVM.Instructions;
+                var recipe = await _recipeRepository.GetByIdAsync(id);
 
-            await _photoService.DeletePhotoAsync(oldImage);
+                if (recipe == null) return View("Error");
+                var oldImage = recipe.Image;
 
-            var result = await _photoService.AddPhotoAsync(recipeVM.Image);
+                recipe.Name = recipeVM.Name;
+                recipe.Description = recipeVM.Description;
 
-            recipe.Image = result.Url.ToString();
+                recipe.RecipeCategory = recipeVM.RecipeCategory;
+                recipe.CookTime = recipeVM.CookTime;
+                recipe.Temperature = recipeVM.Temperature;
+                recipe.Degree = recipeVM.Degree;
+                recipe.RecipeDifficultyLevel = recipeVM.RecipeDifficultyLevel;
+                recipe.Ingredients = recipeVM.Ingredients;
+                recipe.Instructions = recipeVM.Instructions;
 
-            _recipeRepository.Update(recipe);
+                if(recipeVM.Image != null)
+                {
+                await _photoService.DeletePhotoAsync(oldImage);
+                var result = await _photoService.AddPhotoAsync(recipeVM.Image);
+                recipe.Image = result.Url.ToString();
+                }
 
+                _recipeRepository.Update(recipe);
+
+                return RedirectToAction("Index");
+        }
+        public async Task<IActionResult> Delete(int id)
+        {
+            var recipeDetails = await _recipeRepository.GetByIdAsync(id);
+            if (recipeDetails == null) return View("Error");
+            return View(recipeDetails);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteRecipe(int id)
+        {
+            var recipeToDelete = await _recipeRepository.GetByIdAsync(id);
+            if (recipeToDelete == null) return View("Error");
+
+            await _photoService.DeletePhotoAsync(recipeToDelete.Image);
+
+            _recipeRepository.Delete(recipeToDelete);
             return RedirectToAction("Index");
         }
     }
 }
-

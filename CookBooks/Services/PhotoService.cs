@@ -4,7 +4,6 @@ using CookBooks.Helpers;
 using CookBooks.Interfaces;
 using Microsoft.Extensions.Options;
 
-
 namespace CookBooks.Services
 {
     public class PhotoService : IPhotoService
@@ -40,7 +39,7 @@ namespace CookBooks.Services
         {
             string publicId = getPublicIdFromUrl(ImageUrl);
             var deleteParam = new DeletionParams(publicId);
-            var result =  await _cloudinary.DestroyAsync(deleteParam);
+            var result = await _cloudinary.DestroyAsync(deleteParam);
 
             return result;
 

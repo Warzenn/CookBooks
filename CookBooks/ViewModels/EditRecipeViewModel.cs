@@ -1,6 +1,7 @@
 ﻿using CookBook.Model.Enums;
 using CookBook.Model;
 using CookBooks.Model;
+using System.ComponentModel.DataAnnotations;
 
 namespace CookBooks.ViewModels
 
@@ -13,7 +14,9 @@ namespace CookBooks.ViewModels
         public int Id { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
+       
         public IFormFile Image { get; set; }
+        [Required]
         public string URL { get; set; }
         public int? Rating { get; set; }
         public Degree? Degree { get; set; }

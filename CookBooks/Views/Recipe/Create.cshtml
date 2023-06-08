@@ -2,12 +2,13 @@
 @using CookBook.Model.Enums;
 @using CookBooks.ViewModels;
 
-@model CreateRecipeViewModel;
+@model CreateRecipeViewModel
 
 
 @{
     ViewData["Title"] = "Create Recipe";
 }
+<div class="container">
 
 <form method="post" asp-action="Create" enctype="multipart/form-data">
    <div class="form-group">
@@ -164,3 +165,5 @@
     
     <button type="submit" value="Submit" class="btn btn-primary" style="margin-bottom:100px; margin-top: 20px">Submit</button>
 </form>
+
+</div>
