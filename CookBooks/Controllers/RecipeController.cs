@@ -56,6 +56,7 @@ namespace CookBooks.Controllers
                     RecipeDifficultyLevel = recipeVM.RecipeDifficultyLevel,
                     Temperature = recipeVM.Temperature,
                     Image = result.Url.ToString()
+                   
                 };
 
                 _recipeRepository.Add(recipe);

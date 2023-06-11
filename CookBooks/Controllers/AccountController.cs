@@ -55,5 +55,45 @@ namespace CookBooks.Controllers
             return View(loginViewModel);
 
         }
+
+        public IActionResult Register()
+        {
+            var response = new RegisterViewModel();
+            return View(response);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel registerVM)
+        {
+            if (!ModelState.IsValid) return View(registerVM);
+
+            var user = await _userManager.FindByEmailAsync(registerVM.EmailAddress);
+
+            if (user != null)
+            {
+                ModelState.AddModelError("", "User with that email already exist");
+                return View(registerVM);
+            }
+
+            var newUser = new AppUser
+            {
+                UserName = registerVM.ConfirmPassword,
+
+            };
+            var newUserResponse = await _userManager.CreateAsync(newUser, registerVM.Password);
+
+            if (newUserResponse.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(newUser, "user");
+            }
+
+            return RedirectToAction("Recipe","Index");
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Recipe");
+        }
     }
 }
