@@ -15,6 +15,7 @@ namespace CookBooks.ViewModels
         public int? CookTime { get; set; }
         public RecipeCategory RecipeCategory { get; set; }
         public RecipeDifficultyLevel RecipeDifficultyLevel { get; set; }
+        
 
         
         public List<Instructions>? Instructions { get; set; }

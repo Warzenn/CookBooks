@@ -3,6 +3,7 @@ using CookBook.Model.Enums;
 using CookBooks.Interfaces;
 using CookBooks.Model;
 using CookBooks.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Diagnostics;
 
@@ -12,12 +13,14 @@ namespace CookBooks.Controllers
     {
         private readonly IRecipeRepository _recipeRepository;
         private readonly IPhotoService _photoService;
+        private readonly UserManager<AppUser> _userManager;
 
-        public RecipeController(IRecipeRepository recipeRepository, IPhotoService photoService)
+        public RecipeController(IRecipeRepository recipeRepository, IPhotoService photoService, UserManager<AppUser> userManager)
         {
 
             _recipeRepository = recipeRepository;
             _photoService = photoService;
+            _userManager = userManager;
         }
         public async Task<IActionResult> Index()
         {
@@ -39,10 +42,12 @@ namespace CookBooks.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateRecipeViewModel recipeVM)
         {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
             if (ModelState.IsValid)
             {
                 var result = await _photoService.AddPhotoAsync(recipeVM.Image);
+                
                 var recipe = new Recipe
                 {
                     Ingredients = recipeVM.Ingredients,
@@ -55,8 +60,8 @@ namespace CookBooks.Controllers
                     Degree = recipeVM.Degree,
                     RecipeDifficultyLevel = recipeVM.RecipeDifficultyLevel,
                     Temperature = recipeVM.Temperature,
-                    Image = result.Url.ToString()
-                   
+                    Image = result.Url.ToString(),
+                    Owner = user,
                 };
 
                 _recipeRepository.Add(recipe);
